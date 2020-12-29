@@ -1,58 +1,77 @@
 function findAuthorById(authors, id) {
-  for(let i = 0; i < authors.length; i++) {
-    if(authors[i].id === id) {
-      return authors[i];
-    };
-  };
+  const result = authors.find(author => {
+    if(author.id === id) {
+      return author
+    }
+  })
+  return result
+  // for(let i = 0; i < authors.length; i++) {
+  //   if(authors[i].id === id) {
+  //     return authors[i]
+  //   }
+  // }
 }
 
 function findBookById(books, id) {
-  for(let i = 0; i < books.length; i++) {
-    if(books[i].id === id){
-      return books[i];
-    };
-  };
-};
+  const result = books.find(book => {
+    if(book.id === id) {
+      return book
+    }
+  })
+  return result
+  // for(let i = 0; i < books.length; i++) {
+  //   if(books[i].id === id){
+  //     return books[i];
+  //   };
+  // };
+}
 
 function partitionBooksByBorrowedStatus(books) {
 
-  let result = [];
-  const falseArr = [];
-  const trueArr = [];
+  let result = []
+  const falseArr = []
+  const trueArr = []
 
-  for(let i = 0; i < books.length; i++) {
-   if(books[i].borrows[0].returned){
-    trueArr.push(books[i])
-    }
-    else{
-        falseArr.push(books[i])
-    }
-  }
+  books.forEach(item => {
+    if(item.borrows[0].returned) {
+      trueArr.push(item)} else {
+        falseArr.push(item)
+      }
+  })
 
-  result.push(falseArr);
-  result.push(trueArr);
+  // for(let i = 0; i < books.length; i++) {
+  //  if(books[i].borrows[0].returned){
+  //   trueArr.push(books[i])
+  //   }
+  //   else{
+  //       falseArr.push(books[i])
+  //   }
+  // }
 
-  return result;
-};
+  result.push(falseArr)
+  result.push(trueArr)
+
+  return result
+}
 
 function getBorrowersForBook(book, accounts) {
-  const filteredBooks = [];
+  const filteredBooks = []
 
   for (let i=0; i < book.borrows.length; i++){
     for(let j=0; j < accounts.length; j++){
       if (book.borrows[i].id === accounts[j].id && i < 10){
-        accounts[j].returned = book.borrows[i].returned;
-        filteredBooks.push(accounts[j]);
+        accounts[j].returned = book.borrows[i].returned
+        filteredBooks.push(accounts[j])
       }
     }
   }
 
-  return filteredBooks;
-};
+  return filteredBooks
+}
 
 module.exports = {
   findAuthorById,
   findBookById,
   partitionBooksByBorrowedStatus,
   getBorrowersForBook,
-};
+}
